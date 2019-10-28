@@ -1,0 +1,2 @@
+C:\Users\Charles\source\repos\Matriz3D\Matriz3D.Tests\obj\Debug\Matriz3D.Tests.csprojAssemblyReference.cache
+C:\Users\Charles\source\repos\Matriz3D\Matriz3D.Tests\obj\Debug\Matriz3D.Tests.csproj.CoreCompileInputs.cache

@@ -1,0 +1,67 @@
+﻿@using Matriz3D.Models.DTO;
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<link href="~/Scripts/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
+
+<div id="contenedor">
+    <div class="jumbotron">
+        <h2>Paso 3</h2>
+        <p>Consulta</p>
+        <input type="text" id="query" class="form-control" />
+        <br />
+        <button onclick="validar()" class="btn btn-default">Siguiente &raquo;</button>
+    </div>
+
+    @{
+        if (Session["msg"] != null)
+        {
+            var it = (Mensaje)(Session["msg"]);
+            <input type="hidden" id="msg" value="@it.msg" />
+            <input type="hidden" id="tipo" value="@it.code" />
+        }
+
+        Session["msg"] = null; }
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap-sweetalert/sweetalert.min.js"></script>
+    <script src="~/Scripts/principal.js"></script>
+</div>
+
+<script>
+    $(document).ready(function () {
+        msg();
+    });
+
+    function validar() {
+        var q = $("#query").val();
+
+        if ($("#query").val() == '' || $("#query") === undefined) {
+            swal({
+                title: "Error!",
+                text: "El valor de la consulta no es valida.",
+                type: "error",
+                confirmButtonClass: "btn-error",
+                confirmButtonText: "Aceptar"
+            });
+
+            $("#query").focus();
+        } else {
+            query(q);
+        } 
+    }
+
+    function query(q) {
+
+        $.post("@Url.Action("Query")", { q: q }).done(function (data) {
+
+            $("#contenedor").html(data);
+
+        }).fail(function (xhr, textStatus, errorThrown) {
+            $("#contenedor").html(xhr.responseText);
+        });
+    }
+</script>
